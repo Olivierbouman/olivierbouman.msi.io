@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>RegMiner Manual Scraper</title>
+        <link rel="stylesheet" type="text/css" href="buttons.css">
+
+        <script defer src="annotating.js"></script>
+        <script defer src="load_in_json_auto.js"></script>
+        <script defer src="load_in_json_input.js"></script>
+        <script defer src="save_data.js"></script>
+        <script defer src="think_ahead.js"></script>
+        <script defer src="changeLevel.js"></script>
+        <script defer src="level_numbers.js"></script>
+        <script defer src="font_template.js"></script>
+        <script defer src="short_cut_functions.js"></script>    
+    </head>
+
+    <style>
+        body {padding-bottom: 35px; padding-top:25px; background-color: #fafafa}
+        .file_name {position:fixed; padding-left: 1600px; font-size: 35px; font-weight: bold; text-align: right; }
+        .parent {display: flex; position:relative ; padding-bottom:10px; width:1025px; z-index: 10}
+        .level_block {width: 300px; text-align:center}
+        .text_block::selection {background:rgb(255, 178, 100)}
+        .text_block:hover {background-color:rgb(255, 255, 191); z-index:15} /*!important} /*;border: 3px solid rgb(255, 255, 191)!important}*/
+        .text_block {width: 725px; transition: all 0.25s ease}
+
+        button:hover {background-color: #3e8e41}
+        button {background-color: #4CAF50; border: 1px solid green; border-radius: 5px 5px 5px 5px;
+        color: white; font-size: 19px; padding: 12.5px; cursor: pointer; border:0px solid #4CAF50;
+        width: 200px; left: 1270px;} /*left:1250px*/
+
+        [id="one_step"] {position: fixed; left:1410px; top: 25px}
+        [id="suggestions"] {position: fixed; left:1410px; top: 65px}
+        [type="open_file"] {position: fixed; top: 105px; background-color: cadetblue; border-color:lightslategrey}
+        [type="open_file"]:hover {background-color:dodgerblue}
+        [type="save_file"] {position: fixed; top: 155px; background-color: cadetblue; border-color:lightslategrey}
+        [type="save_file"]:hover {background-color:dodgerblue}
+        [id="button1"] {position: fixed; top: 240px}
+        [id="button2"] {position: fixed; top: 290px}
+        [id="button3"] {position: fixed; top: 340px}
+        [id="button4"] {position: fixed; top: 390px}
+        [id="button5"] {position: fixed; top: 440px}
+        [id="button6"] {position: fixed; top: 490px}
+        [id="button7"] {position: fixed; top: 540px}
+        [id="button8"] {position: fixed; top: 590px}
+        [type="changeLevel"] {position:fixed; top:680px; background-color:rgb(235, 217, 63);color:black}
+        [type="changeLevel"]:hover {background-color: rgb(246, 225, 22);transition: all 0.5s ease}
+        [id="index"] {position:fixed; top:730px; left:1271px; width: 45px;border-radius: 4px;}
+        [id="level"] {position:fixed; top:730px; left:1323px; width: 142px;border-radius: 4px;} /*display:none}*/
+        [type="think_ahead"] {position: fixed; left:1270px; top: 820px;background-color:rgb(170, 0, 0)} /*820px*/
+        [type="think_ahead"]:hover {background-color:rgb(195, 4, 4);color:azure; font-size: 24px;transition: all 1.0s ease}
+        [type="text"] {position: fixed; top: 500px; left:5000px} /*bad fix*/
+    </style>
+    <body>
+        <input type="text" id="mytext" value="ON"/> <!--Pushed 5000px to the right-->
+
+        <input class="newLevel" id="index">
+        <input class="newLevel" id="level">
+
+        <div class="btn-group">
+            <button type='open_file' id='upload' onclick=openJSONFile()>Open a Document</button>
+            <button type="save_file" id="save" onclick=exportToJsonFile()>Save Document</button>
+            <button class="levelConfirm" id="button1" value="Title" onclick=assignLevel(this.value)>Title</button>
+            <button class="levelConfirm" id="button2" value="Part" onclick=assignLevel(this.value)>Part</button>
+            <button class="levelConfirm" id="button3" value="Chapter" onclick=assignLevel(this.value)>Chapter</button>
+            <button class="levelConfirm" id="button4" value="Section" onclick=assignLevel(this.value)>Section</button>
+            <button class="levelConfirm" id="button5" value="Subsection" onclick=assignLevel(this.value)>Subsection</button>
+            <button class="levelConfirm" id="button6" value="Article" onclick=assignLevel(this.value)>Article</button>
+            <button class="levelConfirm" id="button7" value="Paragraph" onclick=assignLevel(this.value)>Paragraph</button>
+            <button class="levelConfirm" id="button8" value="Discard text" onclick=assignLevel(this.value)>Discard text</button>
+            <button type="changeLevel" id="change" onclick=applyChangeLevel()>Change level</button>
+            <button type='think_ahead' id='think' onclick=thinkAhead()>Think Ahead</button>
+
+            <label class="switch" id="one_step"><input type="checkbox" name="radio" value='2'><span class="slider round"></span></label>
+            <span style="position: fixed; left:1305px">ONE STEP</span>
+            <label class="switch" id="suggestions"><input type="checkbox" name="radio" value='2'><span class="slider round"></span></label>
+            <span style="position: fixed; left:1290px; top:73px">SUGGESTIONS</span>
+        </div>
+
+        <!-- <div class="file_name"></div> -->
+        <div class='document' id='default_doc' style="padding-left: 100px"></div> <!--To be filled with text contents-->
+    </body>
+</html>
+
